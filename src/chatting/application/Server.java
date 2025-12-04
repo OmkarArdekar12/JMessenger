@@ -19,13 +19,13 @@ public class Server extends JFrame implements ActionListener {
         ImageIcon i3 = new ImageIcon(i2);
         JLabel back = new JLabel(i3);
         back.setBounds(5, 20, 25, 25);
-        p1.add(back);
-
         back.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent ae) {
                 System.exit(0);
             }
         });
+        p1.add(back);
+
 
         setSize(450, 700);
         setLocation(200, 50);
