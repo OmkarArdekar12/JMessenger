@@ -36,6 +36,7 @@ public class Server extends JFrame implements ActionListener {
         setSize(450, 700);
         setLocation(200, 50);
         getContentPane().setBackground(Color.WHITE);
+        
         setVisible(true);
     }
 
