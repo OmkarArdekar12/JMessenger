@@ -2,8 +2,9 @@ package chatting.application;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class Server extends JFrame {
+public class Server extends JFrame implements ActionListener {
     Server() {
         setLayout(null);
 
@@ -20,12 +21,23 @@ public class Server extends JFrame {
         back.setBounds(5, 20, 25, 25);
         p1.add(back);
 
+        back.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent ae) {
+                System.exit(0);
+            }
+        });
+
         setSize(450, 700);
         setLocation(200, 50);
         getContentPane().setBackground(Color.WHITE);
 
         setVisible(true);
     }
+
+    public void actionPerformed(ActionEvent ae) {
+
+    }
+
     public static void main(String args[]) {
         new Server();
     }
