@@ -147,6 +147,7 @@ public class Server extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         String msg = text.getText();
+        
     }
 
     public static void main(String args[]) {
