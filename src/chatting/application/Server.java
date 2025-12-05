@@ -1,12 +1,16 @@
 package chatting.application;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+import java.text.*;
 
 public class Server extends JFrame implements ActionListener {
     JTextField text;
     JPanel messagePanel;
+    Box vertical = Box.createVerticalBox();
     Server() {
         setLayout(null);
     
@@ -73,6 +77,7 @@ public class Server extends JFrame implements ActionListener {
         messagePanel.setBackground(new Color(236, 229, 221));
         messagePanel.setBounds(0, 70, 450, 530);
         add(messagePanel);
+        vertical.setBorder(new EmptyBorder(10, 0, 0, 0));
 
         JPanel inputPanel = new JPanel();
         inputPanel.setBackground(new Color(240, 240, 240));
@@ -103,6 +108,14 @@ public class Server extends JFrame implements ActionListener {
                 }
             }
         };
+        text.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    sendMessage();
+                }
+            }
+        });
         text.setBounds(5, 5, 300, 50);
         text.setFont(new Font("Roboto", Font.PLAIN, 16));
         // text.addFocusListener(new FocusAdapter() {
@@ -145,9 +158,58 @@ public class Server extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent ae) {
+    private void sendMessage() {
         String msg = text.getText();
-        
+    
+        if(msg.trim().length() == 0) {
+            return;
+        }
+    
+        JLabel msgLabel = new JLabel("<html><p style='width: 150px;'>" + msg + "</p></html>");
+        msgLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
+        msgLabel.setBackground(new Color(220, 248, 198));
+        msgLabel.setOpaque(true);
+        msgLabel.setBorder(new EmptyBorder(5, 5, 5, 7));
+        msgLabel.setForeground(Color.BLACK);
+    
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        JLabel time = new JLabel();
+        time.setText(sdf.format(calendar.getTime()).toUpperCase());
+        time.setFont(new Font("Roboto", Font.PLAIN, 12));
+        time.setBackground(new Color(220, 248, 198));
+        time.setOpaque(true);
+        time.setBorder(new EmptyBorder(5, 5, 5, 7));
+        time.setForeground(Color.BLACK);
+    
+        JPanel message = new JPanel();
+        message.setLayout(new BoxLayout(message, BoxLayout.Y_AXIS));
+        message.setBackground(new Color(220, 248, 198));
+        message.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 20));
+        message.add(msgLabel);
+        message.add(time);
+    
+        JPanel rightAlign = new JPanel(new BorderLayout());
+        rightAlign.add(message, BorderLayout.LINE_END);
+        rightAlign.setBackground(new Color(236, 229, 221));
+    
+        vertical.add(rightAlign);
+        vertical.add(Box.createVerticalStrut(15));
+    
+        messagePanel.setLayout(new BorderLayout());
+        messagePanel.add(vertical, BorderLayout.PAGE_START);
+    
+        text.setText("");
+    
+        messagePanel.revalidate();
+        messagePanel.repaint();
+        // repaint();
+        // invalidate();
+        // validate();
+    }
+
+    public void actionPerformed(ActionEvent ae) {
+        sendMessage();
     }
 
     public static void main(String args[]) {
