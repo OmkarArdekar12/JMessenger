@@ -12,6 +12,7 @@ import java.io.*;
 public class Client extends JFrame implements ActionListener {
     JTextField text;
     JPanel messagePanel;
+    JScrollPane scrollPane;
     Box vertical = Box.createVerticalBox();
     static DataOutputStream dout;
     Client() {
@@ -78,9 +79,18 @@ public class Client extends JFrame implements ActionListener {
 
         messagePanel = new JPanel();
         messagePanel.setBackground(new Color(236, 229, 221));
-        messagePanel.setBounds(0, 70, 450, 530);
-        add(messagePanel);
+        messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS);
+
+        scrollPane = new JScrollPane(messagePanel);
+        scrollPane.setBounds(0, 70, 450, 530);
+        scrollPane.setBorder(null);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
         vertical.setBorder(new EmptyBorder(10, 0, 0, 0));
+
+        add(scrollPane);
 
         JPanel inputPanel = new JPanel();
         inputPanel.setBackground(new Color(240, 240, 240));
@@ -187,10 +197,17 @@ public class Client extends JFrame implements ActionListener {
 
             dout.writeUTF(msg);
         
-            text.setText("");
-        
             messagePanel.revalidate();
             messagePanel.repaint();
+            
+            SwingUtilities.invokeLater(() -> {
+                scrollPane.getVerticalScrollBar().setValue(
+                    scrollPane.getVerticalScrollBar().getMaximum()
+                );
+            });
+
+            text.setText("");
+
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -237,6 +254,12 @@ public class Client extends JFrame implements ActionListener {
     
         messagePanel.revalidate();
         messagePanel.repaint();
+
+        SwingUtilities.invokeLater(() -> {
+            scrollPane.getVerticalScrollBar().setValue(
+                scrollPane.getVerticalScrollBar().getMaximum()
+            );
+        });
     }
 
     public void actionPerformed(ActionEvent ae) {
