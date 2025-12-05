@@ -2,7 +2,7 @@ package chatting.application;
 
 public class MessengerApp {
     public static void main(String[] args) {
-        //Server
+        //Server Side
         new Thread(() -> {
             Server.main(null);
         }).start();
@@ -11,7 +11,7 @@ public class MessengerApp {
             Thread.sleep(1000); 
         } catch(Exception e) {}
 
-        //Client
+        //Client Side
         new Thread(() -> {
             Client.main(null);
         }).start();
