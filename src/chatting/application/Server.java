@@ -98,7 +98,6 @@ public class Server implements ActionListener {
         inputPanel.setBounds(0, 600, 450, 100);
         frame.add(inputPanel);
 
-        // JTextField text = new JTextField("Type a message...");
         text = new JTextField() {
             private String placeholder = "Type a message...";
 
@@ -131,22 +130,6 @@ public class Server implements ActionListener {
         });
         text.setBounds(5, 5, 300, 50);
         text.setFont(new Font("Roboto", Font.PLAIN, 16));
-        // text.addFocusListener(new FocusAdapter() {
-        //     @Override
-        //     public void focusGained(FocusEvent e) {
-        //         if(text.getText().equals("Type a message...")) {
-        //             text.setText("");
-        //             text.setForeground(Color.BLACK);
-        //         }
-        //     }
-        //     @Override
-        //     public void focusLost(FocusEvent e) {
-        //         if(text.getText().isEmpty()) {
-        //             text.setText("Type a message...");
-        //             text.setForeground(Color.GRAY);
-        //         }
-        //     }
-        // });
         inputPanel.add(text);
 
         ImageIcon sendIcon = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/send.png"));
@@ -167,7 +150,6 @@ public class Server implements ActionListener {
         frame.setSize(450, 700);
         frame.setLocation(200, 50);
         frame.getContentPane().setBackground(Color.WHITE);
-        // frame.setUndecorated(true);
         frame.setVisible(true);
     }
 
@@ -228,9 +210,6 @@ public class Server implements ActionListener {
             messagePanel.revalidate();
             messagePanel.repaint();
             autoScroll();
-            // repaint();
-            // invalidate();
-            // validate();
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -280,11 +259,11 @@ public class Server implements ActionListener {
         autoScroll();
     }
 
+    @Override
     public void actionPerformed(ActionEvent ae) {
         sendMessage();
         return;
     }
-
 
     public static void main(String args[]) {
         Server serverUI = new Server();
