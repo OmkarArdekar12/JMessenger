@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class Server extends JFrame implements ActionListener {
     Server() {
         setLayout(null);
-
+    
         JPanel p1 = new JPanel();
         p1.setBackground(new Color(10, 100, 90));
         p1.setBounds(0, 0, 450, 70);
@@ -37,7 +37,7 @@ public class Server extends JFrame implements ActionListener {
         Image c2 = c1.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon c3 = new ImageIcon(c2);
         JLabel phoneCall = new JLabel(c3);
-        phoneCall.setBounds(315, 20, 30, 30);
+        phoneCall.setBounds(310, 20, 30, 30);
         p1.add(phoneCall);
 
         ImageIcon v1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/video.png"));
@@ -53,6 +53,18 @@ public class Server extends JFrame implements ActionListener {
         JLabel moreOptions = new JLabel(m3);
         moreOptions.setBounds(400, 20, 30, 30);
         p1.add(moreOptions);
+
+        JLabel name = new JLabel("Alice");
+        name.setBounds(114, 15, 100, 20);
+        name.setFont(new Font("Roboto", Font.BOLD, 18));
+        name.setForeground(Color.BLACK);
+        p1.add(name);
+
+        JLabel status = new JLabel("● Active now");
+        status.setBounds(114, 35, 100, 20);
+        status.setFont(new Font("Roboto", Font.PLAIN, 14));
+        status.setForeground(Color.GREEN);
+        p1.add(status);
 
         setSize(450, 700);
         setLocation(200, 50);
