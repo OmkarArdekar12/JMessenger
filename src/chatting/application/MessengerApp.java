@@ -11,7 +11,7 @@ public class MessengerApp {
             Thread.sleep(1000); 
         } catch(Exception e) {}
 
-        //Client Side
+        //ClientSide
         new Thread(() -> {
             Client.main(null);
         }).start();
