@@ -5,76 +5,148 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Server extends JFrame implements ActionListener {
+    JTextField text;
+    JPanel messagePanel;
     Server() {
         setLayout(null);
     
-        JPanel p1 = new JPanel();
-        p1.setBackground(new Color(10, 100, 90));
-        p1.setBounds(0, 0, 450, 70);
-        p1.setLayout(null);
-        add(p1);
+        JPanel msgHeaderPanel = new JPanel();
+        msgHeaderPanel.setBackground(new Color(7, 94, 84));
+        msgHeaderPanel.setBounds(0, 0, 450, 70);
+        msgHeaderPanel.setLayout(null);
+        add(msgHeaderPanel);
 
         ImageIcon b1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/back.png"));
         Image b2 = b1.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
         ImageIcon b3 = new ImageIcon(b2);
         JLabel back = new JLabel(b3);
         back.setBounds(5, 20, 25, 25);
+        back.setCursor(new Cursor(Cursor.HAND_CURSOR));
         back.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent ae) {
                 System.exit(0);
             }
         });
-        p1.add(back);
+        msgHeaderPanel.add(back);
 
         ImageIcon u1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/user1.png"));
         Image u2 = u1.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         ImageIcon u3 = new ImageIcon(u2);
         JLabel userProfile = new JLabel(u3);
         userProfile.setBounds(45, 10, 50, 50);
-        p1.add(userProfile);
+        msgHeaderPanel.add(userProfile);
 
         ImageIcon c1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/call.png"));
         Image c2 = c1.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon c3 = new ImageIcon(c2);
         JLabel phoneCall = new JLabel(c3);
         phoneCall.setBounds(310, 20, 30, 30);
-        p1.add(phoneCall);
+        msgHeaderPanel.add(phoneCall);
 
         ImageIcon v1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/video.png"));
         Image v2 = v1.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon v3 = new ImageIcon(v2);
         JLabel videoCall = new JLabel(v3);
         videoCall.setBounds(355, 20, 30, 30);
-        p1.add(videoCall);
+        msgHeaderPanel.add(videoCall);
 
         ImageIcon m1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/more.png"));
         Image m2 = m1.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon m3 = new ImageIcon(m2);
         JLabel moreOptions = new JLabel(m3);
         moreOptions.setBounds(400, 20, 30, 30);
-        p1.add(moreOptions);
+        msgHeaderPanel.add(moreOptions);
 
         JLabel name = new JLabel("Alice");
         name.setBounds(114, 15, 100, 20);
         name.setFont(new Font("Roboto", Font.BOLD, 18));
         name.setForeground(Color.BLACK);
-        p1.add(name);
+        msgHeaderPanel.add(name);
 
         JLabel status = new JLabel("● Active now");
         status.setBounds(114, 35, 100, 20);
         status.setFont(new Font("Roboto", Font.PLAIN, 14));
         status.setForeground(Color.GREEN);
-        p1.add(status);
+        msgHeaderPanel.add(status);
+
+        messagePanel = new JPanel();
+        messagePanel.setBackground(new Color(236, 229, 221));
+        messagePanel.setBounds(0, 70, 450, 530);
+        add(messagePanel);
+
+        JPanel inputPanel = new JPanel();
+        inputPanel.setBackground(new Color(240, 240, 240));
+        inputPanel.setLayout(null);
+        inputPanel.setBounds(0, 600, 450, 100);
+        add(inputPanel);
+
+        // JTextField text = new JTextField("Type a message...");
+        text = new JTextField() {
+            private String placeholder = "Type a message...";
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                if (getText().length() == 0) {
+                    Graphics2D g2 = (Graphics2D) g.create();
+                    g2.setColor(Color.GRAY);
+                    g2.setFont(getFont().deriveFont(Font.ITALIC));
+
+                    Insets in = getInsets();
+                    FontMetrics fm = g2.getFontMetrics();
+                    int x = in.left + 2;
+                    int y = (getHeight() + fm.getAscent() - fm.getDescent()) / 2;
+
+                    g2.drawString(placeholder, x, y);
+                    g2.dispose();
+                }
+            }
+        };
+        text.setBounds(5, 5, 300, 50);
+        text.setFont(new Font("Roboto", Font.PLAIN, 16));
+        // text.addFocusListener(new FocusAdapter() {
+        //     @Override
+        //     public void focusGained(FocusEvent e) {
+        //         if(text.getText().equals("Type a message...")) {
+        //             text.setText("");
+        //             text.setForeground(Color.BLACK);
+        //         }
+        //     }
+        //     @Override
+        //     public void focusLost(FocusEvent e) {
+        //         if(text.getText().isEmpty()) {
+        //             text.setText("Type a message...");
+        //             text.setForeground(Color.GRAY);
+        //         }
+        //     }
+        // });
+        inputPanel.add(text);
+
+        ImageIcon sendIcon = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/send.png"));
+        Image img = sendIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        sendIcon = new ImageIcon(img);
+
+        JButton sendBtn = new JButton("Send", sendIcon);
+        sendBtn.setBounds(310, 5, 120, 50);
+        sendBtn.setFont(new Font("Roboto", Font.PLAIN, 18));
+        sendBtn.setBackground(new Color(37, 211, 102));
+        sendBtn.setForeground(Color.WHITE);
+        sendBtn.setBorderPainted(false);
+        sendBtn.setFocusPainted(false);
+        sendBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        sendBtn.addActionListener(this);
+        inputPanel.add(sendBtn);
 
         setSize(450, 700);
         setLocation(200, 50);
         getContentPane().setBackground(Color.WHITE);
-
+        // setUndecorated(true);
         setVisible(true);
     }
 
     public void actionPerformed(ActionEvent ae) {
-
+        String msg = text.getText();
     }
 
     public static void main(String args[]) {
