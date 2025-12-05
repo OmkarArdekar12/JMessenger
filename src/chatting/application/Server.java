@@ -86,6 +86,8 @@ public class Server implements ActionListener {
         scrollPane.setBounds(0, 70, 450, 530);
         scrollPane.setBorder(null);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
         frame.add(scrollPane);
         vertical.setBorder(new EmptyBorder(10, 0, 0, 0));
