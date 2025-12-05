@@ -79,7 +79,7 @@ public class Client extends JFrame implements ActionListener {
 
         messagePanel = new JPanel();
         messagePanel.setBackground(new Color(236, 229, 221));
-        messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS);
+        messagePanel.setLayout(new BoxLayout(messagePanel, BoxLayout.Y_AXIS));
 
         scrollPane = new JScrollPane(messagePanel);
         scrollPane.setBounds(0, 70, 450, 530);

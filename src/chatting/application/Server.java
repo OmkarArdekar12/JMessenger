@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.DataInputStream;
 import java.util.*;
 import java.text.*;
 import java.net.*;
@@ -13,6 +12,7 @@ import java.io.*;
 public class Server implements ActionListener {
     JTextField text;
     JPanel messagePanel;
+    JScrollPane scrollPane;
     Box vertical = Box.createVerticalBox();
     static JFrame frame = new JFrame();
     static DataOutputStream dout;
@@ -80,8 +80,14 @@ public class Server implements ActionListener {
 
         messagePanel = new JPanel();
         messagePanel.setBackground(new Color(236, 229, 221));
-        messagePanel.setBounds(0, 70, 450, 530);
-        frame.add(messagePanel);
+        messagePanel.setLayout(new BorderLayout());
+
+        scrollPane = new JScrollPane(messagePanel);
+        scrollPane.setBounds(0, 70, 450, 530);
+        scrollPane.setBorder(null);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        frame.add(scrollPane);
         vertical.setBorder(new EmptyBorder(10, 0, 0, 0));
 
         JPanel inputPanel = new JPanel();
@@ -163,6 +169,14 @@ public class Server implements ActionListener {
         frame.setVisible(true);
     }
 
+    private void autoScroll() {
+        SwingUtilities.invokeLater(() -> {
+            scrollPane.getVerticalScrollBar().setValue(
+                scrollPane.getVerticalScrollBar().getMaximum()
+            );
+        });
+    }
+
     private void sendMessage() {
         try {
             String msg = text.getText();
@@ -211,6 +225,7 @@ public class Server implements ActionListener {
         
             messagePanel.revalidate();
             messagePanel.repaint();
+            autoScroll();
             // repaint();
             // invalidate();
             // validate();
@@ -260,6 +275,7 @@ public class Server implements ActionListener {
     
         messagePanel.revalidate();
         messagePanel.repaint();
+        autoScroll();
     }
 
     public void actionPerformed(ActionEvent ae) {
