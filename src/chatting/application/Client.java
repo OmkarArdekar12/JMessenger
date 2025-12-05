@@ -12,8 +12,8 @@ import java.io.*;
 public class Client extends JFrame implements ActionListener {
     JTextField text;
     JPanel messagePanel;
-    JScrollPane scrollPane;
     Box vertical = Box.createVerticalBox();
+    JScrollPane scrollPane;
     static DataOutputStream dout;
     Client() {
         setLayout(null);
