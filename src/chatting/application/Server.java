@@ -4,21 +4,26 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.DataInputStream;
 import java.util.*;
 import java.text.*;
+import java.net.*;
+import java.io.*;
 
-public class Server extends JFrame implements ActionListener {
+public class Server implements ActionListener {
     JTextField text;
     JPanel messagePanel;
     Box vertical = Box.createVerticalBox();
+    static JFrame frame = new JFrame();
+    static DataOutputStream dout;
     Server() {
-        setLayout(null);
+        frame.setLayout(null);
     
         JPanel msgHeaderPanel = new JPanel();
         msgHeaderPanel.setBackground(new Color(7, 94, 84));
         msgHeaderPanel.setBounds(0, 0, 450, 70);
         msgHeaderPanel.setLayout(null);
-        add(msgHeaderPanel);
+        frame.add(msgHeaderPanel);
 
         ImageIcon b1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/back.png"));
         Image b2 = b1.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
@@ -76,14 +81,14 @@ public class Server extends JFrame implements ActionListener {
         messagePanel = new JPanel();
         messagePanel.setBackground(new Color(236, 229, 221));
         messagePanel.setBounds(0, 70, 450, 530);
-        add(messagePanel);
+        frame.add(messagePanel);
         vertical.setBorder(new EmptyBorder(10, 0, 0, 0));
 
         JPanel inputPanel = new JPanel();
         inputPanel.setBackground(new Color(240, 240, 240));
         inputPanel.setLayout(null);
         inputPanel.setBounds(0, 600, 450, 100);
-        add(inputPanel);
+        frame.add(inputPanel);
 
         // JTextField text = new JTextField("Type a message...");
         text = new JTextField() {
@@ -151,16 +156,70 @@ public class Server extends JFrame implements ActionListener {
         sendBtn.addActionListener(this);
         inputPanel.add(sendBtn);
 
-        setSize(450, 700);
-        setLocation(200, 50);
-        getContentPane().setBackground(Color.WHITE);
-        // setUndecorated(true);
-        setVisible(true);
+        frame.setSize(450, 700);
+        frame.setLocation(200, 50);
+        frame.getContentPane().setBackground(Color.WHITE);
+        // frame.setUndecorated(true);
+        frame.setVisible(true);
     }
 
     private void sendMessage() {
-        String msg = text.getText();
-    
+        try {
+            String msg = text.getText();
+        
+            if(msg.trim().length() == 0) {
+                return;
+            }
+        
+            JLabel msgLabel = new JLabel("<html><p style='width: 150px;'>" + msg + "</p></html>");
+            msgLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
+            msgLabel.setBackground(new Color(220, 248, 198));
+            msgLabel.setOpaque(true);
+            msgLabel.setBorder(new EmptyBorder(5, 5, 5, 7));
+            msgLabel.setForeground(Color.BLACK);
+        
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+            JLabel time = new JLabel();
+            time.setText(sdf.format(calendar.getTime()).toUpperCase());
+            time.setFont(new Font("Roboto", Font.PLAIN, 12));
+            time.setBackground(new Color(220, 248, 198));
+            time.setOpaque(true);
+            time.setBorder(new EmptyBorder(5, 5, 5, 7));
+            time.setForeground(Color.BLACK);
+        
+            JPanel message = new JPanel();
+            message.setLayout(new BoxLayout(message, BoxLayout.Y_AXIS));
+            message.setBackground(new Color(220, 248, 198));
+            message.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 20));
+            message.add(msgLabel);
+            message.add(time);
+        
+            JPanel rightAlign = new JPanel(new BorderLayout());
+            rightAlign.add(message, BorderLayout.LINE_END);
+            rightAlign.setBackground(new Color(236, 229, 221));
+        
+            vertical.add(rightAlign);
+            vertical.add(Box.createVerticalStrut(15));
+        
+            messagePanel.setLayout(new BorderLayout());
+            messagePanel.add(vertical, BorderLayout.PAGE_START);
+
+            dout.writeUTF(msg);
+
+            text.setText("");
+        
+            messagePanel.revalidate();
+            messagePanel.repaint();
+            // repaint();
+            // invalidate();
+            // validate();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void receiveMessage(String msg) {
         if(msg.trim().length() == 0) {
             return;
         }
@@ -189,31 +248,44 @@ public class Server extends JFrame implements ActionListener {
         message.add(msgLabel);
         message.add(time);
     
-        JPanel rightAlign = new JPanel(new BorderLayout());
-        rightAlign.add(message, BorderLayout.LINE_END);
-        rightAlign.setBackground(new Color(236, 229, 221));
+        JPanel leftAlign = new JPanel(new BorderLayout());
+        leftAlign.add(message, BorderLayout.LINE_START);
+        leftAlign.setBackground(new Color(236, 229, 221));
     
-        vertical.add(rightAlign);
+        vertical.add(leftAlign);
         vertical.add(Box.createVerticalStrut(15));
     
         messagePanel.setLayout(new BorderLayout());
         messagePanel.add(vertical, BorderLayout.PAGE_START);
     
-        text.setText("");
-    
         messagePanel.revalidate();
         messagePanel.repaint();
-        // repaint();
-        // invalidate();
-        // validate();
     }
 
     public void actionPerformed(ActionEvent ae) {
         sendMessage();
+        return;
     }
 
+
     public static void main(String args[]) {
-        new Server();
+        Server serverUI = new Server();
+
+        try {
+            ServerSocket skt = new ServerSocket(8080);
+            while(true) {
+                Socket s = skt.accept();
+                DataInputStream din = new DataInputStream(s.getInputStream());
+                dout = new DataOutputStream(s.getOutputStream());
+
+                while(true) {
+                    String msg = din.readUTF();
+                    serverUI.receiveMessage(msg);
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
