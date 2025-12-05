@@ -270,7 +270,6 @@ public class Server implements ActionListener {
 
     public static void main(String args[]) {
         Server serverUI = new Server();
-
         try {
             ServerSocket skt = new ServerSocket(8080);
             while(true) {
