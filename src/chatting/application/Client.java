@@ -262,6 +262,7 @@ public class Client extends JFrame implements ActionListener {
         });
     }
 
+    @Override
     public void actionPerformed(ActionEvent ae) {
         sendMessage();
         return;
@@ -269,7 +270,6 @@ public class Client extends JFrame implements ActionListener {
 
     public static void main(String args[]) {
         Client clientUI = new Client();
-
         try {
             Socket s = new Socket("127.0.0.1", 8080);
             DataInputStream din = new DataInputStream(s.getInputStream());
