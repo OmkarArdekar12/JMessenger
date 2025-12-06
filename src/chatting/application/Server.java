@@ -18,6 +18,7 @@ public class Server implements ActionListener {
     static DataOutputStream dout;
     Server() {
         frame.setLayout(null);
+        frame.setTitle("JMessenger - Server");
     
         JPanel msgHeaderPanel = new JPanel();
         msgHeaderPanel.setBackground(new Color(7, 94, 84));
