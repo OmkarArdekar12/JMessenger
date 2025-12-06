@@ -17,6 +17,7 @@ public class Client extends JFrame implements ActionListener {
     static DataOutputStream dout;
     Client() {
         setLayout(null);
+        setTitle("JMessenger - Client");
     
         JPanel msgHeaderPanel = new JPanel();
         msgHeaderPanel.setBackground(new Color(7, 94, 84));
