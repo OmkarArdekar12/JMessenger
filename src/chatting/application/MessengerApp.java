@@ -7,7 +7,7 @@ public class MessengerApp {
             Server.main(null);
         }).start();
 
-        try { 
+        try {
             Thread.sleep(1000); 
         } catch(Exception e) {}
         
