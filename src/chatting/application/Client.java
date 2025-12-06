@@ -25,7 +25,7 @@ public class Client extends JFrame implements ActionListener {
         msgHeaderPanel.setLayout(null);
         add(msgHeaderPanel);
 
-        ImageIcon b1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/back.png"));
+        ImageIcon b1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/assets/icons/back.png"));
         Image b2 = b1.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
         ImageIcon b3 = new ImageIcon(b2);
         JLabel back = new JLabel(b3);
@@ -38,28 +38,28 @@ public class Client extends JFrame implements ActionListener {
         });
         msgHeaderPanel.add(back);
 
-        ImageIcon u1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/user2.png"));
+        ImageIcon u1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/assets/icons/user2.png"));
         Image u2 = u1.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         ImageIcon u3 = new ImageIcon(u2);
         JLabel userProfile = new JLabel(u3);
         userProfile.setBounds(45, 10, 50, 50);
         msgHeaderPanel.add(userProfile);
 
-        ImageIcon c1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/call.png"));
+        ImageIcon c1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/assets/icons/call.png"));
         Image c2 = c1.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon c3 = new ImageIcon(c2);
         JLabel phoneCall = new JLabel(c3);
         phoneCall.setBounds(310, 20, 30, 30);
         msgHeaderPanel.add(phoneCall);
 
-        ImageIcon v1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/video.png"));
+        ImageIcon v1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/assets/icons/video.png"));
         Image v2 = v1.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon v3 = new ImageIcon(v2);
         JLabel videoCall = new JLabel(v3);
         videoCall.setBounds(355, 20, 30, 30);
         msgHeaderPanel.add(videoCall);
 
-        ImageIcon m1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/more.png"));
+        ImageIcon m1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/assets/icons/more.png"));
         Image m2 = m1.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon m3 = new ImageIcon(m2);
         JLabel moreOptions = new JLabel(m3);
@@ -133,7 +133,7 @@ public class Client extends JFrame implements ActionListener {
         text.setFont(new Font("Roboto", Font.PLAIN, 16));
         inputPanel.add(text);
 
-        ImageIcon sendIcon = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/send.png"));
+        ImageIcon sendIcon = new ImageIcon(ClassLoader.getSystemResource("chatting/application/assets/icons/send.png"));
         Image img = sendIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         sendIcon = new ImageIcon(img);
 
