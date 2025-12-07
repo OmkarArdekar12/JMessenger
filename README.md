@@ -72,7 +72,7 @@ javac chatting/application/*.java
 java chatting.application.MessengerApp
 ```
 
-OR
+<p align="center">OR</p>
 
 ```bash
 cd src
