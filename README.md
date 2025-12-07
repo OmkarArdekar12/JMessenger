@@ -79,4 +79,4 @@ cd src
 javac chatting/application/*.java && java chatting.application.MessengerApp
 ```
 
-<br/><hr/><br/>
+<br/><hr/>
