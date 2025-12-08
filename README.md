@@ -80,5 +80,4 @@ javac chatting/application/*.java && java chatting.application.MessengerApp
 ```
 
 <br/>
-<hr/>
-<br/>
+<hr/><br/>
