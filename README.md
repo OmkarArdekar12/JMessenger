@@ -1,4 +1,13 @@
-# JMessenger
+<h1><img src="./resources/JMessengerLogo.png" alt="JMessenger Logo" width="59px" valign="bottom"/>&nbsp;JMessenger</h1>
+
+<div>
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" alt="Java"/>
+  <img src="https://img.shields.io/badge/OOPs-Object%20Oriented-blue?style=for-the-badge" alt="OOPs"/>
+  <img src="https://img.shields.io/badge/Swing-UI%20Framework-6DB33F?style=for-the-badge" alt="Swing"/>
+  <img src="https://img.shields.io/badge/AWT-GUI%20Toolkit-007396?style=for-the-badge" alt="AWT"/>
+  <img src="https://img.shields.io/badge/TCP%2FIP-Socket%20Programming-FF6F00?style=for-the-badge" alt="TCP/IP"/>
+  <img src="https://img.shields.io/badge/Real--Time%20Messaging-Networking-9C27B0?style=for-the-badge" alt="Real Time Messaging"/>
+</div>
 
 ## JMessenger - Real-Time Messaging Java Desktop Application
 
