@@ -1,4 +1,4 @@
-<h1><img src="./resources/JMessengerLogo.png" alt="JMessenger Logo" width="59px" valign="bottom"/>&nbsp;JMessenger</h1>
+<h1><img src="./resources/JMessengerLogo.png" alt="JMessenger Logo" width="55px" valign="bottom"/>&nbsp;JMessenger</h1>
 
 <div>
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" alt="Java"/>
